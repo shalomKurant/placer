@@ -29,7 +29,6 @@ const EmptyResult: FC<EmptyResultProps> = ({meteorList, filters, applayFilter}) 
           Jump to <span className={styles.YearText}>{getYearFromDateValue(suggestionMeteor?.year)}</span> to find result
         </div> : <></>}
     </div>
-    {suggestionMeteor?.name}
   </>
 )};
 

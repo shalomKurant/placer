@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useLayoutEffect, useState } from 'react';
 import { Filter } from "../../models/filter/Filter";
 import { IMeteor } from '../../types/IMeteor';
 import EmptyResult from '../EmptyResult/EmptyResult';
@@ -16,13 +16,20 @@ const shouldShowMeteorInfo = (meteor: IMeteor, filters: Array<Filter<IMeteor>>):
   return filters.every(f => f.isMatchesValue(meteor));
 }
 
+const useGetListToDisplay = (meteorList: Array<IMeteor>, filters: Array<Filter<IMeteor>>) => {
+  const [listToDisplay, setListToDisplay] = useState(meteorList);
+
+  useLayoutEffect(() => {
+    const listToDisplay: Array<IMeteor> = meteorList.filter(m => shouldShowMeteorInfo(m, filters));
+    setListToDisplay(listToDisplay);
+  }, [meteorList, filters]);
+
+  return listToDisplay;
+}
+
 const MeteorResults: FC<MeteorResultsProps> = ({meteorList, filters, isLoading, applayFilter}) => {
-  const [listToDisplay, setListToDIsplay] = useState(meteorList);
-  useEffect(() => {
-    const listToDIsplay: Array<IMeteor> = meteorList.filter(m => shouldShowMeteorInfo(m, filters));
-    setListToDIsplay(listToDIsplay);
-  }, [meteorList, filters])
-  
+  const listToDisplay = useGetListToDisplay(meteorList, filters);
+
   return (
   <div className={styles.MeteorResults}>
     {isLoading ? <div className={styles.Loading}>Loading Meteors...</div> : <></>}

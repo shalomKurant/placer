@@ -31,7 +31,7 @@ const useGetMeteors = () => {
 
 const MeteorsBoard: FC<MeteorsBoardProps> = () => { 
   const [activeFilters, setActiveFilters] = useState<Array<Filter<IMeteor>>>([]);
-  const [inputValueAutocomplete, setInputValueAutocomplete] = useState<string>();
+  const [autocompleteInputValue, setAutocompleteInputValue] = useState<string>();
   const {meteorList, isLoading} = useGetMeteors();;
 
   const applayFilter = (filter: Filter<IMeteor>, shouldSetInputValue?: boolean) => {
@@ -42,8 +42,9 @@ const MeteorsBoard: FC<MeteorsBoardProps> = () => {
     }
     oldFilters.push(filter);
     setActiveFilters(oldFilters);
+
     if (shouldSetInputValue) {
-      setInputValueAutocomplete(getYearFromDateValue(String(filter.value)));
+      setAutocompleteInputValue(getYearFromDateValue(String(filter.value)));
     }
   }
   
@@ -52,7 +53,7 @@ const MeteorsBoard: FC<MeteorsBoardProps> = () => {
     <SearchBar 
       meteorList={meteorList} 
       applayFilter={applayFilter} 
-      inputValueAutocomplete={inputValueAutocomplete}/>
+      inputValueAutocomplete={autocompleteInputValue}/>
     <MeteorResults 
       meteorList={meteorList} 
       filters={activeFilters} 
