@@ -1,0 +1,31 @@
+.MeteorInfo {
+    width: 150px;
+    height: auto;
+    max-height: 300px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: solid 0.5px #a0a0a04a;
+    border-radius: 4px;
+    margin: 8px;
+}
+
+.Title {
+    width: 100%;
+    color: brown;
+    background-color: antiquewhite;
+}
+
+.OpenMapButton {
+    width: 100px;
+    margin: 6px;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 0px 4px 0 rgb(0 0 0 / 24%);
+}
+.OpenMapButton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24) !important;
+}

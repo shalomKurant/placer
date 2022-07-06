@@ -1,0 +1,9 @@
+.EmptyResult {}
+
+.JumpToYearButton {
+    cursor: pointer;
+}
+
+.YearText {
+    font-weight: bold;
+}

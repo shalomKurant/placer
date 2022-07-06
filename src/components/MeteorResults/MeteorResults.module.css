@@ -1,0 +1,20 @@
+.MeteorResults {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.MeteorList {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.Loading {
+    width: 100%;
+    font-size: 20px;
+    margin: 12px;
+}
