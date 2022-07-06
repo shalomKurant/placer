@@ -1,15 +1,14 @@
-import { FC, useLayoutEffect, useState } from 'react';
+import { FC, useContext, useLayoutEffect, useState } from 'react';
 import { Filter } from "../../models/filter/Filter";
 import { IMeteor } from '../../types/IMeteor';
 import EmptyResult from '../EmptyResult/EmptyResult';
 import MeteorInfo from '../MeteorInfo/MeteorInfo';
+import { MeteorListContext } from '../SearchableMeteors/SearchableMeteors';
 import styles from './MeteorResults.module.css';
 
 interface MeteorResultsProps {
-  meteorList: Array<IMeteor>;
   filters: Array<Filter<IMeteor>>;
   isLoading: boolean;
-  applayFilter: (filter: Filter<IMeteor>, shouldSetInputValue?: boolean) => void; 
 }
 
 const shouldShowMeteorInfo = (meteor: IMeteor, filters: Array<Filter<IMeteor>>): boolean => {
@@ -27,7 +26,8 @@ const useGetListToDisplay = (meteorList: Array<IMeteor>, filters: Array<Filter<I
   return listToDisplay;
 }
 
-const MeteorResults: FC<MeteorResultsProps> = ({meteorList, filters, isLoading, applayFilter}) => {
+const MeteorResults: FC<MeteorResultsProps> = ({filters, isLoading}) => {
+  const meteorList: Array<IMeteor> = useContext(MeteorListContext);
   const listToDisplay = useGetListToDisplay(meteorList, filters);
 
   return (
@@ -35,9 +35,7 @@ const MeteorResults: FC<MeteorResultsProps> = ({meteorList, filters, isLoading, 
     {isLoading ? <div className={styles.Loading}>Loading Meteors...</div> : <></>}
     {!listToDisplay.length && !isLoading ? 
       <EmptyResult 
-        meteorList={meteorList} 
-        filters={filters} 
-        applayFilter={applayFilter}/> : <></>}
+        filters={filters}/> : <></>}
 
      <div className={styles.MeteorList}>
       {listToDisplay.map((meteorInfo: IMeteor) => {

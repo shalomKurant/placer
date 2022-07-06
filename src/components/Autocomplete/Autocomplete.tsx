@@ -1,21 +1,21 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { EqualFilter } from "../../models/filter/EqualFilter";
-import { Filter } from '../../models/filter/Filter';
 import { IMeteor } from '../../types/IMeteor';
 import { getYearFromDateValue } from '../../utils/ValueConverter';
+import { ApplayFilterContext } from '../SearchableMeteors/SearchableMeteors';
 import SuggestionsList from '../SuggestionsList/SuggestionsList';
 
 interface AutocompleteProps {
   suggestions: Array<string>;
-  applayFilter: (filter: Filter<IMeteor>, shouldSetInputValue?: boolean) => void;
   inputValue?: string;
   fieldName: keyof IMeteor;
 }
 
-const Autocomplete: FC<AutocompleteProps> = ({suggestions, applayFilter, inputValue, fieldName}) => { 
+const Autocomplete: FC<AutocompleteProps> = ({suggestions, inputValue, fieldName}) => { 
   const [filteredSuggestions, setFilteredSuggestions] = useState([""]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [input, setInput] = useState("");
+  const applayFilter = useContext(ApplayFilterContext);
 
   useEffect(() => {
     if (inputValue)

@@ -1,14 +1,13 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { EqualFilter } from "../../models/filter/EqualFilter";
 import { Filter } from "../../models/filter/Filter";
 import { IMeteor } from '../../types/IMeteor';
 import { getYearFromDateValue } from '../../utils/ValueConverter';
+import { ApplayFilterContext, MeteorListContext } from '../SearchableMeteors/SearchableMeteors';
 import styles from './EmptyResult.module.css';
 
 interface EmptyResultProps {
-  meteorList: Array<IMeteor>;
   filters: Array<Filter<IMeteor>>;
-  applayFilter: (filter: Filter<IMeteor>, shouldSetInputValue?: boolean) => void;
 }
 
 const getSuggestionMeteor = (meteorList: Array<IMeteor>, filters: Array<Filter<IMeteor>>): IMeteor | undefined => {
@@ -17,7 +16,9 @@ const getSuggestionMeteor = (meteorList: Array<IMeteor>, filters: Array<Filter<I
   return sortedList.find(meteor => filtersWithoutYear.every(filter => filter.isMatchesValue(meteor)));
 }
 
-const EmptyResult: FC<EmptyResultProps> = ({meteorList, filters, applayFilter}) => {
+const EmptyResult: FC<EmptyResultProps> = ({filters}) => {
+  const meteorList: Array<IMeteor> = useContext(MeteorListContext);
+  const applayFilter = useContext(ApplayFilterContext);
   const suggestionMeteor = getSuggestionMeteor(meteorList, filters);
 
   return (

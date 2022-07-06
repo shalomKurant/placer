@@ -1,16 +1,17 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { GreaterThanFilter } from "../../models/filter/GreaterThanFilter";
 import { Filter } from "../../models/filter/Filter";
 import { IMeteor } from '../../types/IMeteor';
 import styles from './FreeTextInput.module.css';
+import { ApplayFilterContext } from '../SearchableMeteors/SearchableMeteors';
 
 interface FreeTextInputProps {
-  applayFilter(filter: Filter<IMeteor>, shouldSetInputValue?: boolean): void;
   fieldName: keyof IMeteor;
 }
 
-const FreeTextInput: FC<FreeTextInputProps> = ({applayFilter, fieldName}) => {
+const FreeTextInput: FC<FreeTextInputProps> = ({fieldName}) => {
   const [input, setInput] = useState("");
+  const applayFilter = useContext(ApplayFilterContext);
 
   const onChange = (e: any): void => {
     const userInput: string = e.target.value;
